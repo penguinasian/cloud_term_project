@@ -46,11 +46,6 @@ form {
     width: 90%;
 }
 
-.sports {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
 
 .form-check {
     margin-right:10px;

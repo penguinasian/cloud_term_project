@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-// Below are the codes for when not importing express
+// Below are the codes for when not using express module
 // const server = http.createServer((req, res) => {
 //     console.log(req.url, req.method);
 //     // set header content type
@@ -43,10 +43,13 @@ app.listen(3000);
 
 // For linking the css to html files
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Routing to sign up page
 app.get('/', (req, res) => {
     res.sendFile('./views/index.html', {root: __dirname});
 })
 
+// Routing to login page
 app.get('/login', (req, res) => {
     res.sendFile('./views/login.html', {root: __dirname});
 })
