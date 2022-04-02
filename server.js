@@ -46,12 +46,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routing to sign up page
 app.get('/', (req, res) => {
-    res.sendFile('./views/index.html', {root: __dirname});
+    res.sendFile('./views/login.html', {root: __dirname});
 })
 
 // Routing to login page
-app.get('/login', (req, res) => {
-    res.sendFile('./views/login.html', {root: __dirname});
+app.get('/signup', (req, res) => {
+    res.sendFile('./views/signup.html', {root: __dirname});
 })
 
 // 404 page, the use function is going to fire for every request come in, but only if the request only reaches
