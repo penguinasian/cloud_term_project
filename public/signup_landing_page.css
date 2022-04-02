@@ -1,0 +1,20 @@
+body {
+    margin: auto;
+    background-image: url('summer.jpg');
+    background-size: cover;
+    background-repeat:no-repeat;
+     
+}
+
+.welcomeback {
+    display: flex;
+    justify-content: center;
+    margin:auto;
+    width: 60%;
+    padding: 10px;
+    margin-top: 10%;
+}
+
+body h1 {
+    font-family: 'Times New Roman', Times, serif;
+}
