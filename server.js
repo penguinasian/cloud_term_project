@@ -29,11 +29,19 @@ app.get('/signup', (req, res) => {
     res.sendFile('./views/signup.html', { root: __dirname });
 })
 
-//Routing to landing page
+//Routing to landing page when logged in
 app.post('/landing', (req, res) => {
 
     res.sendFile('./views/landing_page.html', {root: __dirname});
 })
+
+//Routing to landing page after first time sign up
+app.post('/first', (req, res) => {
+
+    res.sendFile('./views/signup_landing_page.html', {root: __dirname});
+})
+
+
 
 // 404 page, the use function is going to fire for every request come in, but only if the request only reaches
 // to this line of code.
