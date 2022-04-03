@@ -50,3 +50,9 @@ form {
 .form-check {
     margin-right:10px;
 }
+
+.error-message {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
