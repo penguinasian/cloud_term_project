@@ -16,38 +16,39 @@
 </head>
 
 <body>
-    <div class="form" style="border-radius: 15px;">
-        <form action="/landing" method="post">
-            <div class="title">
-                <h1>Login</h1>
-                
-            </div>
-        
+    <div class="parent">
+        <div class="form" style="border-radius: 15px;">
+            <form action="/landing" method="post">
+                <div class="title">
+                    <h1>Log In</h1>
+                </div>
+            
 
-            <div class="mb-3">
-                <label for="emailaddress" class="form-label">Email Address</label>
-                <input type="name" name="email" class="form-control" id="email" placeholder="Your Email">
-            </div>
+                <div class="mb-3">
+                    <label for="emailaddress" class="form-label">Email Address</label>
+                    <input type="name" name="email" class="form-control" id="email" placeholder="Your Email">
+                </div>
 
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="name" name="password" class="form-control" id="password" placeholder="Password">
-            </div>
-            <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-success btn-lg btn-lock">Login</button>
-            </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success btn-lg btn-lock">Login</button>
+                </div>
 
-            <div class="error-message">
-                <% if(userNonExistMessage != null) { %>
-                    <p style="color: red;"> <%= userNonExistMessage %> </p>
-                <% } %>
-                <% if(invalidPasswordMessage != null) { %>
-                    <p style="color: red;"> <%= invalidPasswordMessage %> </p>
-                <% } %>
-            </div>
+                <div class="error-message">
+                    <% if(userNonExistMessage != null) { %>
+                        <p style="color: red;"> <%= userNonExistMessage %> </p>
+                    <% } %>
+                    <% if(invalidPasswordMessage != null) { %>
+                        <p style="color: red;"> <%= invalidPasswordMessage %> </p>
+                    <% } %>
+                </div>
 
-            <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/signup" class="fw-bold text-body"><u>Signup here</u></a></p>
-        </form>
+                <p class="text-center text-muted mt-5 mb-0">Don't have an account? <a href="/signup" class="fw-bold text-body"><u>Sign Up</u></a></p>
+            </form>
+        </div>
     </div>
 </body>
 

@@ -15,11 +15,11 @@
     <title>Form</title>
 </head>
 
-<body>
+<body class="parent">
     <div class="form" style="border-radius: 15px;">
         <form action="./first" method="post">
             <div class="title">
-                <h1>Sign up</h1>
+                <h1>Sign Up</h1>
                 
             </div>
             <div class="name">
@@ -40,65 +40,65 @@
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="name" name="password" class="form-control" id="password" placeholder="Password" required>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Confirm Password</label>
-                <input type="name" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
             </div>
 
             <div class="mb-3">
-                <label for="sports">
-                    <b>Tell us a little about yourself!</b>
+                <label id="title-tell-us" class="form-label" for="sports">
+                    <text class="question-title">Tell us a little about yourself!</text>
                 </label>
             </div>
 
             <div class="mb-3">
-                <label for="font">
+                <label class="form-label" for="font">
                     What's your favorite font?
                 </label>
                 <select class="form-control" id="font" name="font">
-                    <option>serif</option>
-                    <option>sans serif</option>
-                    <option>cursive</option>
-                    <option>fantasy</option>
-                    <option>monospace</option>
+                    <option>Serif</option>
+                    <option>Sans Serif</option>
+                    <option>Cursive</option>
+                    <option>Fantasy</option>
+                    <option>Monospace</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="color">
+                <label class="form-label" for="color">
                     What's your favorite color?
                 </label>
                 <select class="form-control" id="color" name="color">
-                    <option>green</option>
-                    <option>blue</option>
-                    <option>yellow</option>
-                    <option>orange</option>
-                    <option>red</option>
+                    <option>Green</option>
+                    <option>Blue</option>
+                    <option>Yellow</option>
+                    <option>Orange</option>
+                    <option>Red</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="season">
+                <label class="form-label" for="season">
                     What's your favorite season?
                 </label>
                 <select class="form-control" id="season" name="season">
-                    <option>spring</option>
-                    <option>summer</option>
-                    <option>fall</option>
-                    <option>winter</option>
+                    <option>Spring</option>
+                    <option>Summer</option>
+                    <option>Fall</option>
+                    <option>Winter</option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="profile">
-                    Your profile picture
+                <label id="title-profile" class="form-label" for="profile">
+                    <text class="question-title">Upload a Profile Picture</text>
                 </label>
                 <br>
                 <input type="file" class="form-control-file" id="profile">
             </div>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center interactive-button">
                 <button type="submit" class="btn btn-success btn-lg btn-lock">Sign Up</button>
             </div>
             <div class="error-message">
@@ -106,7 +106,7 @@
                     <p style="color: red;"> <%= userExistsMessage %> </p>
                 <% } %>
             </div>
-            <p class="text-center text-muted mt-5 mb-0">Have an account already? <a href="/" class="fw-bold text-body"><u>Login here</u></a></p>
+            <p class="text-center text-muted mt-5 mb-0">Have an account already? <a href="/" class="fw-bold text-body"><u>Log In</u></a></p>
         </form>
     </div>
 </body>

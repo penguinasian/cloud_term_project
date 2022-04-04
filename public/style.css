@@ -1,5 +1,4 @@
 body {
-    margin: auto;
     background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
     
     /* background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5)); */
@@ -14,41 +13,55 @@ body {
     padding-right: 50px;
 }
 
+.parent {
+    display: flex;
+    height: 100vh;
+}
+
 .form {
     background-color: white;
+    margin: auto auto;
+    /* margin-top: 5%;
+    margin-bottom: 5%; */
+    border: 1px solid;
+    border-radius: 1%;
+    width: 50%;
+    padding: 5rem;
 }
 
 .name {
     display: flex;
+    gap: 3rem;
 }
 
-.title h1 {
-    margin-bottom: 50px;
-    font-weight: bolder;
-    
-}
-
-.form {
-    margin: auto;
-    margin-top: 5%;
-    border: 1px solid;
-    border-radius: 1%;
-    width: 50%;
-}
-
-form {
-    margin-left: 10%;
-    margin-bottom: 5%;
+#title-tell-us {
     margin-top: 5%
 }
 
-.form-control {
-    width: 90%;
+#title-profile {
+    margin-top: 5%
 }
 
+.question-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.title h1 {
+    margin-bottom: 5%;
+    font-weight: bolder;
+}
+
+.form-control {
+    width: 100%
+}
 
 .form-check {
     margin-right:10px;
+}
+
+.interactive-button{
+    margin-top:15%;
 }
 
 .error-message {
