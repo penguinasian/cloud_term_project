@@ -42,6 +42,7 @@ app.get('/signup', (req, res) => {
 app.post('/landing', async (req, res) => {
     let password = req.body.password;
     let email = req.body.email;
+    let favSeason = req.body.season;
     
     
     const client = new DynamoDBClient({ region: "us-west-2" });
@@ -67,11 +68,12 @@ app.post('/landing', async (req, res) => {
         else  {
             let firstName = responseRead.Responses.users[0].firstName.S;
             let lastName = responseRead.Responses.users[0].lastName.S;
+            let favSeason = responseRead.Responses.users[0].favSeason.S;
             let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
             let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
             firstName[0].toUpperCase();
             lastName[0].toUpperCase();
-            res.render('landing_page', {titlelizedFirstName, titlelizedLastName});
+            res.render('landing_page', {titlelizedFirstName, titlelizedLastName, favSeason});
         }
     }
 
@@ -82,6 +84,8 @@ app.post('/first', async (req, res) => {
 
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
+    let favSeason = req.body.season;
+    console.log(favSeason)
     let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
     let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
     
@@ -100,9 +104,9 @@ app.post('/first', async (req, res) => {
         console.log("User already exists!")
     } else {
         const commandWrite = new BatchWriteItemCommand({ RequestItems: { users: [{ PutRequest: 
-            { Item: { email: { "S": email }, password: { "S": password }, firstName: {"S": firstName}, lastName: {"S": lastName} } } }] } });
+            { Item: { email: { "S": email }, password: { "S": password }, firstName: {"S": firstName}, lastName: {"S": lastName}, favSeason: {"S":favSeason } } } }] } });
         await client.send(commandWrite);
-        res.render('signup_landing_page', {titlelizedFirstName, titlelizedLastName});
+        res.render('signup_landing_page', {titlelizedFirstName, titlelizedLastName, favSeason});
     }
 
 })

@@ -12,11 +12,33 @@
         crossorigin="anonymous"></script>
     <title>Greetings</title>
 </head>
-<body>
 
+    <% if(favSeason == "spring") { %>
+        <body style="background-image: url('spring.jpg')">
+    <% } %>
+    <% if(favSeason == "summer") { %>
+        <body style="background-image: url('summer.jpg')">
+    <% } %>
+    <% if(favSeason == "winter") { %>
+        <body style="background-image: url('winter.jpg')">
+    <% } %>
+    <% if(favSeason == "fall") { %>
+        <body style="background-image: url('fall.jpg')">
+    <% } %>
     
     <div class="welcomeback">
+        <% if(favSeason == "spring") { %>
         <h1><i>Welcome, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Let's take a deep breath and enjoy the breeze!</i></h1>
+        <% } %>
+        <% if(favSeason == "summer") { %>
+        <h1><i>Welcome, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Most people's vivid recollection of that summer is the ocean, what's yours?</i></h1>
+        <% } %>
+        <% if(favSeason == "winter") { %>
+        <h1><i>Welcome, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Even on the coldest days of winter the sun is bright in the sky, bringing joy to everyone's heart!</i></h1>
+        <% } %>
+        <% if(favSeason == "fall") { %>
+        <h1><i>Welcome, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! The beauty of fall is mature--it is not as shy as spring, so dew in summer, and introverted in winter! </i></h1>
+        <% } %>
     </div>
     
 </body>
