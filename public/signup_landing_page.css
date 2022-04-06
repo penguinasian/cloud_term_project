@@ -8,7 +8,8 @@ body {
 
 .welcomeback {
     display: flex;
-    justify-content: center;
+    
+    justify-content: stretch;
     margin:auto;
     width: 60%;
     padding: 10px;

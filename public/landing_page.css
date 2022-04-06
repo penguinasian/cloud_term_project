@@ -1,20 +1,37 @@
 body {
     margin: auto;
     background-image: url('summer.jpg');
-    background-size: cover;
+    background-size: cover 300px;
     background-repeat:no-repeat;
+    background-size: cover;
      
 }
 
-.welcome {
+/* .welcome {
     display: flex;
-    justify-content: center;
+   
     margin:auto;
     width: 60%;
     padding: 10px;
     margin-top: 10%;
-}
+} */
 
 body h1 {
     font-family: 'Times New Roman', Times, serif;
+}
+
+body img {
+    border-radius: 50%;
+    width: 90%;
+    height: 90%;
+}
+
+.profile-image {
+    margin-left: 90%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.welcomeback {
+    margin-left: 1%;
 }
