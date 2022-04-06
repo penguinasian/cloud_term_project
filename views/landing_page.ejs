@@ -12,29 +12,19 @@
         crossorigin="anonymous"></script>
     <title>Greetings</title>
 </head>
-<% if(favSeason == "Spring") { %>
-    <body style="background-image: url('spring.jpg')">
-<% } %>
-<% if(favSeason == "Summer") { %>
-    <body style="background-image: url('summer.jpg')">
-<% } %>
-<% if(favSeason == "Winter") { %>
-    <body style="background-image: url('winter.jpg');">
-<% } %>
-<% if(favSeason == "Fall") { %>
-    <body style="background-image: url('fall.jpg')">
-<% } %>
-    
+
+    <body style="background-image: url('<%= background_image %>')">
+
     <div class="welcome">
         <div class="welcomeback">
             <% if(favSeason == "Spring") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>
+            <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</b></i></h1>
             <% } %>
             <% if(favSeason == "Summer") { %>
             <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>
             <% } %>
             <% if(favSeason == "Winter") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>
+            <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</b></i></h1>
             <% } %>
             <% if(favSeason == "Fall") { %>
             <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>

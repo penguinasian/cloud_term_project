@@ -13,18 +13,9 @@
     <title>Greetings</title>
 </head>
 
-    <% if(favSeason == "Spring") { %>
-        <body style="background-image: url('spring.jpg')">
-    <% } %>
-    <% if(favSeason == "Summer") { %>
-        <body style="background-image: url('summer.jpg')">
-    <% } %>
-    <% if(favSeason == "Winter") { %>
-        <body style="background-image: url('winter.jpg');">
-    <% } %>
-    <% if(favSeason == "Fall") { %>
-        <body style="background-image: url('fall.jpg')">
-    <% } %>
+    
+    <body style="background-image: url('<%= background_image %>')">
+
     
     <div class="welcomeback">
         <% if(favSeason == "Spring") { %>
