@@ -69,15 +69,22 @@ app.post('/landing', async (req, res) => {
 
     const client = new DynamoDBClient({ region: "us-west-2" });
     // Read data by primary key - email
-    const commandRead = new BatchGetItemCommand({ RequestItems: { users: { Keys: [{ email: { "S": email } }] } } });
+    const commandRead = new BatchGetItemCommand({
+        RequestItems: {
+            users: {
+                Keys: [ { email: { "S": email } } ]
+            }
+        }
+    });
     const responseRead = await client.send(commandRead);
-    
+
     if (responseRead.Responses.users.length == 0) {
         // set the error message to non null and render it on login page
         userNonExistMessage = "User does not exit!";
         invalidPasswordMessage = null;
         res.render('login', { userNonExistMessage, invalidPasswordMessage });
         console.log("User does not exist!");
+        console.log(responseRead)
 
     } else {
         if (responseRead.Responses.users[0].password.S != password) {
@@ -92,14 +99,16 @@ app.post('/landing', async (req, res) => {
             const responseReadImage = await client.send(readBackgroundImage);
             let firstName = responseRead.Responses.users[0].firstName.S;
             let lastName = responseRead.Responses.users[0].lastName.S;
-            
+
+            let reminders = responseRead.Responses.users[0].reminders.SS;
+
             let background_image = responseReadImage.Responses.background_image[0].url.S;
             console.log(background_image);
             let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
             let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
             firstName[0].toUpperCase();
             lastName[0].toUpperCase();
-            res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, background_image });
+            res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, reminders, background_image });
         }
     }
 
@@ -136,14 +145,22 @@ app.post('/first', async (req, res) => {
         const commandWrite = new BatchWriteItemCommand({
             RequestItems: {
                 users: [{
-                    PutRequest:
-                        { Item: { email: { "S": email }, password: { "S": password }, firstName: { "S": firstName }, lastName: { "S": lastName }, favSeason: { "S": favSeason } } }
+                    PutRequest: {
+                        Item: {
+                            email: { "S": email },
+                            password: { "S": password },
+                            firstName: { "S": firstName },
+                            lastName: { "S": lastName },
+                            favSeason: { "S": favSeason },
+                            reminders: { "SS": [""]}
+                        }
+                    }
                 }]
             }
         });
         await client.send(commandWrite);
         let background_image = responseReadImage.Responses.background_image[0].url.S;
-    
+
         res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, background_image });
     }
 

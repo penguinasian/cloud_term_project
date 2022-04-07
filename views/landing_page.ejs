@@ -33,7 +33,19 @@
             <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>
             <% } %>
         </div>
+
+        <div class="reminder">
+            <ul class="list-group">
+                <% reminders.forEach((item) => { %>
+                    <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
+                    <li class="list-group-item"><%= item %></li>
+                    <% } %>
+                <% }) %>
+            </ul>
+        </div>
+
+
     </div>
-    
+
 </body>
 </html>
