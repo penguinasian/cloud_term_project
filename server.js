@@ -3,10 +3,16 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const path = require('path');
+const multer  = require('multer')
+
+// this will allow us to save the user profile uploaded pic a mermory storage in byte array format, will be used inside post request
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 // require dynamodb library
 const { DynamoDBClient, BatchGetItemCommand, BatchWriteItemCommand } = require("@aws-sdk/client-dynamodb");
 const AWS = require('@aws-sdk/client-s3');
+
 const s3 = new AWS.S3();
 
 
@@ -19,25 +25,20 @@ app.use(bodyParser.json());
 
 app.listen(3000);
 
-// const uploadFile = (fileName) => {
 
-//     const fileContent = fs.readFileSync(fileName);
-//     const params = {
-//         Bucket: 'term-project/images/background',
-//         Key: fileName,
-//         Body: fileContent
-//     };
+// for the generatString function
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-//     s3.upload(params, (err, data) => {
-//         if(err) {
-//             console.log(err);
-//         } else {
-//             console.log(`Image uploaded successfully. ${data.Location}`);
-//         }
-//     });
-// }
+// randomnly generate string for building url, used in post request
+function generateString(length) {
+    let result = '';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
 
-// uploadFile('fall_resized.jpg');
+    return result;
+}
 
 // setting up variables to manipulate the front end with ejs template
 // Error message, such as "User already exists" "invalid password" will show up depending on the input
@@ -92,6 +93,7 @@ app.post('/landing', async (req, res) => {
             const responseReadImage = await client.send(readBackgroundImage);
             let firstName = responseRead.Responses.users[0].firstName.S;
             let lastName = responseRead.Responses.users[0].lastName.S;
+            let user_image = responseRead.Responses.users[0].profileUrl.S;
             
             let background_image = responseReadImage.Responses.background_image[0].url.S;
             console.log(background_image);
@@ -99,7 +101,7 @@ app.post('/landing', async (req, res) => {
             let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
             firstName[0].toUpperCase();
             lastName[0].toUpperCase();
-            res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, background_image });
+            res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, background_image, user_image });
         }
     }
 
@@ -107,16 +109,28 @@ app.post('/landing', async (req, res) => {
 
 
 //Routing to landing page after first time sign up
-app.post('/first', async (req, res) => {
+// upload.single('profile') is a middleware, it will enable us to save the profile pic a buffer
+// 'profile' - we named it 'profile' in the form, input field for the profile upload
+app.post('/first', upload.single('profile'), async (req, res) => {
 
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let favSeason = req.body.season;
-
+    // generate a random string to help build url
+    let key = generateString(10);
+    
+    // build url for user to save it in Database
+    let profileUrl = `https://profile-pic-term-project.s3.us-west-2.amazonaws.com/${key}`
+    
+    // upload user profile pic onto S3 bucket
+    let params = {Bucket: 'profile-pic-term-project', Key: key, Body: req.file.buffer, ContentType: 'image/jpeg', ACL: 'public-read'};
+    s3.putObject(params, function(err, data) {
+        console.log(err, data);
+      });
 
     let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
     let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
-
+    
     let password = req.body.password;
     let email = req.body.email;
     const client = new DynamoDBClient({ region: "us-west-2" });
@@ -137,14 +151,15 @@ app.post('/first', async (req, res) => {
             RequestItems: {
                 users: [{
                     PutRequest:
-                        { Item: { email: { "S": email }, password: { "S": password }, firstName: { "S": firstName }, lastName: { "S": lastName }, favSeason: { "S": favSeason } } }
+                        { Item: { email: { "S": email }, password: { "S": password }, firstName: { "S": firstName }, lastName: { "S": lastName }, favSeason: { "S": favSeason }, profileUrl: {"S": profileUrl} } }
                 }]
             }
         });
         await client.send(commandWrite);
         let background_image = responseReadImage.Responses.background_image[0].url.S;
-    
-        res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, background_image });
+        let user_image = profileUrl;
+
+        res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, background_image, user_image });
     }
 
 })
