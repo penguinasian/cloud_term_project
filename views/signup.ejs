@@ -17,7 +17,7 @@
 
 <body class="parent">
     <div class="form" style="border-radius: 15px;">
-        <form action="./first" method="post">
+        <form action="./first" method="post" enctype="multipart/form-data">
             <div class="title">
                 <h1>Sign Up</h1>
                 
@@ -92,11 +92,12 @@
             </div>
 
             <div class="mb-3">
-                <label id="title-profile" class="form-label" for="profile">
-                    <text class="question-title">Upload a Profile Picture</text>
-                </label>
+                <text class="question-title">Upload a Profile Picture</text>
                 <br>
-                <input type="file" class="form-control-file" id="profile">
+                <input type="file" id="title-profile" name="profile" class="form-label" for="profile">
+                 
+            </input>
+                <br>
             </div>
             <div class="d-flex justify-content-center interactive-button">
                 <button type="submit" class="btn btn-success btn-lg btn-lock">Sign Up</button>

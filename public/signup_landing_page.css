@@ -6,7 +6,7 @@ body {
      
 }
 
-.welcomeback {
+/* .welcomeback {
     display: flex;
     
     justify-content: stretch;
@@ -14,8 +14,24 @@ body {
     width: 60%;
     padding: 10px;
     margin-top: 10%;
+} */
+
+body img {
+    border-radius: 50%;
+    width: 90%;
+    height: 90%;
+}
+
+.profile-image {
+    margin-left: 90%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 body h1 {
     font-family: 'Times New Roman', Times, serif;
+}
+
+.welcomeback {
+    margin-left: 1%;
 }
