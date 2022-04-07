@@ -34,7 +34,10 @@
             <% } %>
         </div>
 
-        <div class="reminder">
+        <div class="card" style="width: 36rem;">
+            <div class="card-header">
+                Reminders List
+            </div>
             <ul class="list-group">
                 <% reminders.forEach((item) => { %>
                     <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
@@ -42,6 +45,13 @@
                     <% } %>
                 <% }) %>
             </ul>
+            <form class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="inputReminder" class="sr-only"></label>
+                    <input type="text" class="form-control" id="inputReminder" placeholder="Reminder">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Add reminder</button>
+            </form>
         </div>
 
 
