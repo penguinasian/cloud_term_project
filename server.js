@@ -169,7 +169,7 @@ app.post('/first', upload.single('profile'), async (req, res) => {
         await client.send(commandWrite);
         let background_image = responseReadImage.Responses.background_image[0].url.S;
         let user_image = profileUrl;
-        let reminders = response.Responses.users[0].reminders.SS;
+        let reminders = [];
 
         res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, reminders, background_image, user_image });
     }
