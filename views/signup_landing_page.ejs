@@ -21,7 +21,7 @@
                 <img src="<%= user_image %>">
             </div>
             <div class="welcomeback">
-                <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>!</b></i></h1>
+                <h1><i><b>Hi, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>!</b></i></h1>
                 <% if(favSeason == "Spring") { %>
                 <h1><i>Let's take a deep breath and enjoy the breeze!</i></h1>
                 <% } %>
@@ -44,6 +44,7 @@
                     <% remindersList.forEach((item) => { %>
                         <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
                         <li class="list-group-item"><%= item %></li>
+                        <form action="/remove-reminder" method="post"><button type="submit" class="btn btn-primary mb-2"> - Remove</button></form>
                         <% } %>
                     <% }) %>
                 </ul>
