@@ -23,7 +23,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.listen(3000);
+app.listen(443);
 
 
 // for the generatString function
@@ -125,7 +125,7 @@ app.post('/first', upload.single('profile'), async (req, res) => {
     let profileUrl = `https://profile-pic-term-project.s3.us-west-2.amazonaws.com/${key}`
 
     // upload user profile pic onto S3 bucket
-    let params = {Bucket: 'profile-pic-term-project-connor', Key: key, Body: req.file.buffer, ContentType: 'image/jpeg', ACL: 'public-read'};
+    let params = {Bucket: 'profile-pic-term-project', Key: key, Body: req.file.buffer, ContentType: 'image/jpeg', ACL: 'public-read'};
     s3.putObject(params, function(err, data) {
         console.log(err, data);
       });
@@ -169,6 +169,7 @@ app.post('/first', upload.single('profile'), async (req, res) => {
         await client.send(commandWrite);
         let background_image = responseReadImage.Responses.background_image[0].url.S;
         let user_image = profileUrl;
+        console.log(user_image);
         let reminders = [];
 
         res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, reminders, background_image, user_image });
