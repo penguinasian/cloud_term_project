@@ -81,7 +81,7 @@ app.post('/landing', async (req, res) => {
 
     if (responseRead.Responses.users.length == 0) {
         // set the error message to non null and render it on login page
-        userNonExistMessage = "User does not exit!";
+        userNonExistMessage = "User does not exist!";
         invalidPasswordMessage = null;
         res.render('login', { userNonExistMessage, invalidPasswordMessage });
         console.log("User does not exist!");
@@ -138,7 +138,7 @@ app.post('/first', upload.single('profile'), async (req, res) => {
     s3.putObject(params, function(err, data) {
         console.log(err, data);
       });
-
+    
     let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
     let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
 
