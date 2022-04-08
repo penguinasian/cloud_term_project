@@ -23,7 +23,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.listen(443);
+app.listen(80);
 
 
 // for the generatString function
