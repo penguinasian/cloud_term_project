@@ -14,47 +14,50 @@
 </head>
 
     <body style="background-image: url('<%= background_image %>')">
-
-    <div class="welcome">
-        <div class="profile-image">
-            <img src="<%= user_image %>">
-        </div>
-        <div class="welcomeback">
-            <% if(favSeason == "Spring") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
-            <% } %>
-            <% if(favSeason == "Summer") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
-            <% } %>
-            <% if(favSeason == "Winter") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
-            <% } %>
-            <% if(favSeason == "Fall") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
-            <% } %>
-        </div>
-
-        <div class="card" style="width: 36rem;">
-            <div class="card-header">
-                Reminders List
+    
+    <div class ="main">
+        <div class="welcome">
+            <div class="profile-image">
+                <img src="<%= user_image %>">
             </div>
-            <ul class="list-group">
-                <% remindersList.forEach((item) => { %>
-                    <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
-                    <li class="list-group-item"><%= item %></li>
-                    <% } %>
-                <% }) %>
-            </ul>
-            <form class="form-inline" action="/add-reminder-login" method="post">
-                <div class="form-group mb-2">
-                    <label for="inputReminder" class="sr-only"></label>
-                    <input type="text" class="form-control" name="newReminder" placeholder="Reminder">
+            <div class="welcomeback">
+                <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>!</b></i></h1>
+                <% if(favSeason == "Spring") { %>
+                <h1><i>Which tasks have you completed today?</i></h1>
+                <% } %>
+                <% if(favSeason == "Summer") { %>
+                <h1><i>Which tasks have you completed today?</i></h1>
+                <% } %>
+                <% if(favSeason == "Winter") { %>
+                <h1><i>Which tasks have you completed today?</i></h1>
+                <% } %>
+                <% if(favSeason == "Fall") { %>
+                <h1><i>Which tasks have you completed today?</i></h1>
+                <% } %>
+            </div>
+
+            <div class="card self-card">
+                <div class="card-title">
+                    <text>Reminders List</text>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Add reminder</button>
-            </form>
+                <ul class="list-group">
+                    <% remindersList.forEach((item) => { %>
+                        <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
+                        <li class="list-group-item"><%= item %></li>
+                        <% } %>
+                    <% }) %>
+                </ul>
+                <form class="form-inline" action="/add-reminder" method="post">
+                    <div class="form-group mb-2">
+                        <label for="inputReminder" class="sr-only add-new-reminder">Add a New Reminder</label>
+                        <input type="text" class="form-control" name="newReminder" placeholder="Reminder">
+                    </div>
+                    <div class="add-reminder-button">
+                        <button type="submit" class="btn btn-primary mb-2"> + Add reminder</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-
     </div>
 
 </body>

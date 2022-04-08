@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="signup_landing_page.css">
+    <link rel="stylesheet" href="landing_page.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <title>Greetings</title>
 </head>
 
-
-<body style="background-image: url('<%= background_image %>')">
-    <div class="welcome">
-        <div class="profile-image">
-            <img src="<%= user_image %>">
-        </div>
-
-        <div class="welcomeback">
-            <% if(favSeason=="Spring" ) { %>
-            <h1><i>Welcome, <%= titlelizedFirstName %><%= titlelizedLastName %>! Let's take a deep breath and enjoy the breeze!</i></h1>
-            <% } %>
-            <% if(favSeason=="Summer" ) { %>
-            <h1><i>Welcome, <%= titlelizedFirstName %><%= titlelizedLastName %>! Most people's vivid recollection of summer is the ocean,
-            what's yours?</i></h1>
-            <% } %>
-            <% if(favSeason=="Winter" ) { %>
-            <h1><i>Welcome, <%= titlelizedFirstName %>
-            <%= titlelizedLastName %>! Even on the coldest days of winter the sun is bright in the sky, bringing joy to everyone's heart!</i></h1>
-            <% } %>
-            <% if(favSeason=="Fall" ) { %>
-            <h1><i>Welcome, <%= titlelizedFirstName %> <%= titlelizedLastName %>! The beauty of fall is mature--it is not as
-            shy as spring, so dew in summer, and introverted in winter! </i>
-            </h1>
-            <% } %>
-        </div>
-    </div>
-
-    <div class="card" style="width: 36rem;">
-        <div class="card-header">
-            Reminders List
-        </div>
-        <ul class="list-group">
-            <% remindersList.forEach((item) => { %>
-                <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
-                <li class="list-group-item"><%= item %></li>
-                <form action="/remove-reminder" method="post">
-                <button type="submit" class="btn btn-primary mb-2">Remove</button>
-                </form>
-                <% } %>
-            <% }) %>
-        </ul>
-        <form class="form-inline" action="/add-reminder" method="post">
-            <div class="form-group mb-2">
-                <label for="inputReminder" class="sr-only"></label>
-                <input type="text" class="form-control" name="newReminder" placeholder="Reminder">
-                
+    <body style="background-image: url('<%= background_image %>')">
+    
+    <div class ="main">
+        <div class="welcome">
+            <div class="profile-image">
+                <img src="<%= user_image %>">
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Add reminder</button>
-        </form>
-    </div>
-</body>
+            <div class="welcomeback">
+                <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>!</b></i></h1>
+                <% if(favSeason == "Spring") { %>
+                <h1><i>Let's take a deep breath and enjoy the breeze!</i></h1>
+                <% } %>
+                <% if(favSeason == "Summer") { %>
+                <h1><i>Most people's vivid recollection of summer is the ocean, what's yours?</i></h1>
+                <% } %>
+                <% if(favSeason == "Winter") { %>
+                <h1><i>Even on the coldest days of winter the sun is bright in the sky, bringing joy to everyone's heart!</i></h1>
+                <% } %>
+                <% if(favSeason == "Fall") { %>
+                <h1><i>The beauty of fall is mature – it is not as shy as spring, so dew in summer, and introverted in winter!</i></h1>
+                <% } %>
+            </div>
 
+            <div class="card self-card">
+                <div class="card-title">
+                    <text>Reminders List</text>
+                </div>
+                <ul class="list-group">
+                    <% remindersList.forEach((item) => { %>
+                        <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
+                        <li class="list-group-item"><%= item %></li>
+                        <% } %>
+                    <% }) %>
+                </ul>
+                <form class="form-inline" action="/add-reminder" method="post">
+                    <div class="form-group mb-2">
+                        <label for="inputReminder" class="sr-only add-new-reminder">Add a New Reminder</label>
+                        <input type="text" class="form-control" name="newReminder" placeholder="Reminder">
+                    </div>
+                    <div class="add-reminder-button">
+                        <button type="submit" class="btn btn-primary mb-2"> + Add reminder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    </body>
 </html>
