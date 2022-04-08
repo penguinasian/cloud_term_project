@@ -382,7 +382,7 @@ app.post('/add-reminder', async (req, res) => {
     let lastName = responseRead.Responses.users[0].lastName.S;
     let user_image = responseRead.Responses.users[0].profileUrl.S;
 
-    // let reminders = responseRead.Responses.users[0].reminders.SS;
+    let remindersList = responseRead.Responses.users[0].reminders.SS;
 
     let background_image = responseReadImage.Responses.background_image[0].url.S;
     console.log(background_image);
