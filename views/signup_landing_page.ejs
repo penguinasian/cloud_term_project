@@ -43,8 +43,10 @@
                 <ul class="list-group">
                     <% remindersList.forEach((item) => { %>
                         <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
-                        <li class="list-group-item"><%= item %></li>
-                        <form action="/remove-reminder" method="post"><button type="submit" class="btn btn-primary mb-2"> - Remove</button></form>
+                        <div class="to-do-item">
+                            <li class="list-group-item"><%= item %></li>
+                            <form action="/remove-reminder" method="post"><button type="submit" class="btn btn-outline-danger">X</button></form>
+                        </div>
                         <% } %>
                     <% }) %>
                 </ul>
