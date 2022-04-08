@@ -45,10 +45,10 @@
                     <% } %>
                 <% }) %>
             </ul>
-            <form class="form-inline">
+            <form class="form-inline" action="/add-reminder" method="post">
                 <div class="form-group mb-2">
                     <label for="inputReminder" class="sr-only"></label>
-                    <input type="text" class="form-control" id="inputReminder" placeholder="Reminder">
+                    <input type="text" class="form-control" name="newReminder" placeholder="Reminder">
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Add reminder</button>
             </form>
