@@ -44,14 +44,18 @@
                     <% remindersList.forEach((item) => { %>
                         <% if (item.length !== 0) { %> <!-- ignore empty string entries -->
                         <li class="list-group-item"><%= item %></li>
+                        <form action="/remove-reminder-login" method="post"><button type="submit" class="btn btn-primary mb-2"> - Remove</button></form>
                         <% } %>
                     <% }) %>
                 </ul>
                 
-                    <!-- <div class="form-group mb-2">
+                    <div class="form-group mb-2">
                         <label for="inputReminder" class="sr-only add-new-reminder">Add a New Reminder</label>
                         <input type="text" class="form-control" name="newReminder" placeholder="Reminder">
-                    </div> -->
+                    </div>
+                    <div class="add-reminder-button">
+                       <form action="/add-reminder-login" method="post"> <button type="submit" name="newReminder" class="btn btn-primary mb-2"> + Add reminder</button></form>
+                    </div>
                 
             </div>
         </div>
