@@ -48,7 +48,7 @@ function generateString(length) {
 let userNonExistMessage = null;
 let invalidPasswordMessage = null;
 let userExistsMessage = null;
-
+let remindersList = [];
 // For linking the css to html files
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -69,6 +69,10 @@ app.get('/signup', (req, res) => {
 app.post('/landing', async (req, res) => {
     let password = req.body.password;
     let email = req.body.email;
+
+    // parse the reminders list and allow user to add and back end will push newReminder to reminderList defined globlally
+    let newReminder = req.body.newReminder;
+    remindersList.push(newReminder);
 
     const client = new DynamoDBClient({ region: "us-west-2" });
     // Read data by primary key - email
@@ -182,7 +186,7 @@ app.post('/first', upload.single('profile'), async (req, res) => {
     }
 
 })
-let remindersList = [];
+
 app.post('/add-reminder', async (req, res) => {
     const client = new DynamoDBClient({ region: "us-west-2" });
     const docClient = new AWS_General.DynamoDB.DocumentClient({ region: "us-west-2" })
@@ -232,6 +236,59 @@ app.post('/add-reminder', async (req, res) => {
     lastName[0].toUpperCase();
     res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
 })
+
+app.post('/remove-reminder', async (req, res) => {
+    const client = new DynamoDBClient({ region: "us-west-2" });
+    const docClient = new AWS_General.DynamoDB.DocumentClient({ region: "us-west-2" })
+    
+    
+    removed = remindersList.pop();
+    console.log(removed);
+    let email = req.cookies.email;
+
+    const params = {
+        TableName:"users",
+        Key:{
+            "email" : email
+        },
+        UpdateExpression: "ADD reminders :newReminder",
+        ExpressionAttributeValues: {
+            ":newReminder": docClient.createSet([removed])
+        },
+        ReturnValues: "UPDATED_NEW"
+    }
+
+    await docClient.delete(params, function(err, data) {
+        if (err) {
+            console.error("Unable to delete item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+        }
+    });
+
+
+    const commandRead = new BatchGetItemCommand({ RequestItems: { users: { Keys: [{ email: { "S": email } }] } } });
+    const responseRead = await client.send(commandRead);
+
+    let favSeason = responseRead.Responses.users[0].favSeason.S;
+    const readBackgroundImage = new BatchGetItemCommand({ RequestItems: { background_image: { Keys: [{ image_name: { "S": favSeason } }] } } });
+    const responseReadImage = await client.send(readBackgroundImage);
+    let firstName = responseRead.Responses.users[0].firstName.S;
+    let lastName = responseRead.Responses.users[0].lastName.S;
+    let user_image = responseRead.Responses.users[0].profileUrl.S;
+
+    // let reminders = responseRead.Responses.users[0].reminders.SS;
+
+    let background_image = responseReadImage.Responses.background_image[0].url.S;
+    console.log(background_image);
+    let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
+    let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
+    firstName[0].toUpperCase();
+    lastName[0].toUpperCase();
+    res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
+})
+
+
 
 // 404 page, the use function is going to fire for every request come in, but only if the request only reaches
 // to this line of code.
