@@ -21,16 +21,16 @@
         </div>
         <div class="welcomeback">
             <% if(favSeason == "Spring") { %>
-            <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</b></i></h1>
+            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
             <% } %>
             <% if(favSeason == "Summer") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>
+            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
             <% } %>
             <% if(favSeason == "Winter") { %>
-            <h1><i><b>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</b></i></h1>
+            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
             <% } %>
             <% if(favSeason == "Fall") { %>
-            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Remember, you are beautiful just the way you are!</i></h1>
+            <h1><i>Welcome back, <%= titlelizedFirstName  %> <%= titlelizedLastName  %>! Which tasks have you completed today?</i></h1>
             <% } %>
         </div>
 
@@ -39,7 +39,7 @@
                 Reminders List
             </div>
             <ul class="list-group">
-                <% reminders.forEach((item) => { %>
+                <% remindersList.forEach((item) => { %>
                     <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
                     <li class="list-group-item"><%= item %></li>
                     <% } %>

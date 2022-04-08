@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.listen(80);
+app.listen(3000);
 
 
 // for the generatString function
@@ -97,7 +97,7 @@ app.post('/landing', async (req, res) => {
             let lastName = responseRead.Responses.users[0].lastName.S;
             let user_image = responseRead.Responses.users[0].profileUrl.S;
 
-            let reminders = responseRead.Responses.users[0].reminders.SS;
+            let remindersList = responseRead.Responses.users[0].reminders.SS;
 
             let background_image = responseReadImage.Responses.background_image[0].url.S;
             console.log(background_image);
@@ -108,7 +108,7 @@ app.post('/landing', async (req, res) => {
 
             res.cookie('email', email);
 
-            res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, reminders, background_image, user_image });
+            res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
         }
     }
 
@@ -175,18 +175,20 @@ app.post('/first', upload.single('profile'), async (req, res) => {
         let background_image = responseReadImage.Responses.background_image[0].url.S;
         let user_image = profileUrl;
         console.log(user_image);
-        let reminders = [];
+        let remindersList = [];
         res.cookie('email', email);
 
-        res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, reminders, background_image, user_image });
+        res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
     }
 
 })
-
+let remindersList = [];
 app.post('/add-reminder', async (req, res) => {
     const client = new DynamoDBClient({ region: "us-west-2" });
     const docClient = new AWS_General.DynamoDB.DocumentClient({ region: "us-west-2" })
+    
     let newReminder = req.body.newReminder;
+    remindersList.push(newReminder);
     let email = req.cookies.email;
 
     const params = {
@@ -220,7 +222,7 @@ app.post('/add-reminder', async (req, res) => {
     let lastName = responseRead.Responses.users[0].lastName.S;
     let user_image = responseRead.Responses.users[0].profileUrl.S;
 
-    let reminders = responseRead.Responses.users[0].reminders.SS;
+    // let reminders = responseRead.Responses.users[0].reminders.SS;
 
     let background_image = responseReadImage.Responses.background_image[0].url.S;
     console.log(background_image);
@@ -228,7 +230,7 @@ app.post('/add-reminder', async (req, res) => {
     let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
     firstName[0].toUpperCase();
     lastName[0].toUpperCase();
-    res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, reminders, background_image, user_image });
+    res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
 })
 
 // 404 page, the use function is going to fire for every request come in, but only if the request only reaches

@@ -46,7 +46,7 @@
             Reminders List
         </div>
         <ul class="list-group">
-            <% reminders.forEach((item) => { %>
+            <% remindersList.forEach((item) => { %>
                 <% if (item.trim().length !== 0) { %> <!-- ignore empty string entries -->
                 <li class="list-group-item"><%= item %></li>
                 <% } %>
