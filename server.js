@@ -234,6 +234,7 @@ app.post('/add-reminder', async (req, res) => {
     let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
     firstName[0].toUpperCase();
     lastName[0].toUpperCase();
+    console.log(remindersList)
     res.render('signup_landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
 })
 
