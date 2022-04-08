@@ -394,6 +394,57 @@ app.post('/add-reminder', async (req, res) => {
 })
 
 
+app.post('/add-reminder-login', async (req, res) => {
+    const client = new DynamoDBClient({ region: "us-west-2" });
+    const docClient = new AWS_General.DynamoDB.DocumentClient({ region: "us-west-2" })
+
+    let newReminder = req.body.newReminder;
+    console.log("newReminder = " + newReminder);
+    let email = req.cookies.email;
+
+    const params = {
+        TableName:"users",
+        Key:{
+            "email" : email
+        },
+        UpdateExpression: "ADD reminders :newReminder",
+        ExpressionAttributeValues: {
+            ":newReminder": docClient.createSet([newReminder])
+        },
+        ReturnValues: "UPDATED_NEW"
+    }
+
+    await docClient.update(params, function(err, data) {
+        if (err) {
+            console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+        }
+    });
+
+
+    const commandRead = new BatchGetItemCommand({ RequestItems: { users: { Keys: [{ email: { "S": email } }] } } });
+    const responseRead = await client.send(commandRead);
+
+    let favSeason = responseRead.Responses.users[0].favSeason.S;
+    const readBackgroundImage = new BatchGetItemCommand({ RequestItems: { background_image: { Keys: [{ image_name: { "S": favSeason } }] } } });
+    const responseReadImage = await client.send(readBackgroundImage);
+    let firstName = responseRead.Responses.users[0].firstName.S;
+    let lastName = responseRead.Responses.users[0].lastName.S;
+    let user_image = responseRead.Responses.users[0].profileUrl.S;
+
+     let remindersList = responseRead.Responses.users[0].reminders.SS;
+
+    let background_image = responseReadImage.Responses.background_image[0].url.S;
+    console.log(background_image);
+    let titlelizedFirstName = firstName[0].toUpperCase() + firstName.substring(1);
+    let titlelizedLastName = lastName[0].toUpperCase() + lastName.substring(1);
+    firstName[0].toUpperCase();
+    lastName[0].toUpperCase();
+    res.render('landing_page', { titlelizedFirstName, titlelizedLastName, favSeason, remindersList, background_image, user_image });
+})
+
+
 
 // 404 page, the use function is going to fire for every request come in, but only if the request only reaches
 // to this line of code.
