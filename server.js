@@ -48,7 +48,7 @@ function generateString(length) {
 let userNonExistMessage = null;
 let invalidPasswordMessage = null;
 let userExistsMessage = null;
-let remindersList = [];
+let remindersList = [""];
 // For linking the css to html files
 app.use(express.static(path.join(__dirname, 'public')));
 
